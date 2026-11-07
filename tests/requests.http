@@ -1,0 +1,62 @@
+### List all books
+GET http://localhost:3000/books
+
+### Search by partial title
+GET http://localhost:3000/books?search_q=the
+
+### Sort and paginate
+GET http://localhost:3000/books?order_by=price&order=DESC&limit=2&offset=0
+
+### Filter by price range
+GET http://localhost:3000/books?min_price=250&max_price=400
+
+### Create a book (expected 201)
+POST http://localhost:3000/books
+Content-Type: application/json
+
+{
+  "title": "The Hobbit",
+  "author": "J. R. R. Tolkien",
+  "price": 350
+}
+
+### Invalid create: missing title (expected 400)
+POST http://localhost:3000/books
+Content-Type: application/json
+
+{
+  "author": "Unknown Author",
+  "price": 200
+}
+
+### Invalid create: non-numeric price (expected 400)
+POST http://localhost:3000/books
+Content-Type: application/json
+
+{
+  "title": "Bad Price",
+  "author": "Test Author",
+  "price": "not-a-number"
+}
+
+### Get book 1 (expected 200 if it exists)
+GET http://localhost:3000/books/1
+
+### Get missing book (expected 404)
+GET http://localhost:3000/books/99999
+
+### Update book 1 (expected 200 if it exists)
+PUT http://localhost:3000/books/1
+Content-Type: application/json
+
+{
+  "title": "Updated Book",
+  "author": "Updated Author",
+  "price": 275
+}
+
+### Delete book 1 (expected 200 if it exists)
+DELETE http://localhost:3000/books/1
+
+### Delete missing book (expected 404)
+DELETE http://localhost:3000/books/99999
